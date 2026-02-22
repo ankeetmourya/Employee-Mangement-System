@@ -40,7 +40,7 @@ public class AuthService {
                 .email(request.getEmail())
                 .phone(request.getPhone())
                 .password(encoder.encode(request.getPassword()))
-                .role("USER")
+                .role(request.getRole())
                 .build();
 
         repo.save(user);
