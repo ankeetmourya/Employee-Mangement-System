@@ -5,6 +5,7 @@ import com.main.DTO.RegisterRequest;
 import com.main.Entity.User;
 import com.main.Repository.UserRepository;
 import com.main.Security.JwtService;
+import com.main.Email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ public class AuthService {
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final EmailService emailService;
 
     public String register(RegisterRequest request) {
 
@@ -44,6 +46,7 @@ public class AuthService {
                 .build();
 
         repo.save(user);
+        emailService.sendWelcomeEmail(user);
 
         return "User registered successfully";
     }
